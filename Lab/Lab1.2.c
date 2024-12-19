@@ -23,7 +23,6 @@ int main() {
     return 0 ;
 }//end function
 
-
 void GetSet( int a[] , int *num ) {
     printf( "Enter n : ") ;
     scanf( "%d" , num ) ;
