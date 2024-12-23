@@ -13,3 +13,31 @@ int main() {
     return 0 ;
 }//end function
 */
+
+#include <stdio.h>
+
+int main() {
+    char text[50] = "I love you" ; // ข้อความต้นฉบับ
+    char out[50] ; // พื้นที่สำหรับข้อความที่กลับด้าน
+    int length = 0 ;
+
+    // หาความยาวของ str1 (ไม่ใช้ strlen)
+    while ( text[length] != '\0' ) {
+        length++ ;
+    }
+
+    // กลับด้านข้อความ
+    for ( int i = 0 ; i < length; i++ ) {
+        out[i] = text[length - i - 1] ;
+    }
+    out[length] = '\0' ; // เติมเครื่องหมาย null เพื่อจบสตริง
+
+    // แสดงผลลัพธ์
+    printf( "Original String: %s\n", text ) ;
+    printf( "Reversed String: %s\n", out ) ;
+
+    return 0 ;
+}
+
+
+
