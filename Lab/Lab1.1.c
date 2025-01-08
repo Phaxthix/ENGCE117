@@ -5,7 +5,7 @@ int main() {
     printf( " Number : " ) ;
     scanf( "%d", &n ) ;
 
-    for (int i = 0; i < n; i++)
+    for ( int i = 0; i < n; i++ )
     {
         printf( " Hello world\n " ) ;
     }

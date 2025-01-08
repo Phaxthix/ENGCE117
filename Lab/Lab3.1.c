@@ -22,3 +22,33 @@ int main() {
 }//end function
 */
 
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+struct student {
+    char name[20];
+    int age;
+    char sex;
+    float gpa;
+};
+
+void upgrade(struct student *child) {
+    if (child->sex == 'M') {
+        child->gpa *= 1.10; // เพิ่ม GPA ขึ้น 10% สำหรับผู้ชาย
+    } else if (child->sex == 'F') {
+        child->gpa *= 1.20; // เพิ่ม GPA ขึ้น 20% สำหรับผู้หญิง
+    }
+}
+
+int main() {
+    struct student aboy;
+    aboy.sex = 'M';
+    aboy.gpa = 3.00;
+
+    printf("Before upgrade: %.2f\n", aboy.gpa);
+    upgrade(&aboy); // เรียกใช้ฟังก์ชันโดยส่ง pointer ของ aboy
+    printf("After upgrade: %.2f\n", aboy.gpa);
+
+    return 0;
+}

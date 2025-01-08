@@ -24,7 +24,7 @@ int main() {
 }//end function
 
 void GetSet( int a[] , int *num ) {
-    printf( "Enter n : ") ;
+    printf( "Enter n : " ) ;
     scanf( "%d" , num ) ;
 
     printf( "Enter data : " ) ;
