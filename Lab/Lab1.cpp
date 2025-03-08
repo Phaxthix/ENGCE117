@@ -9,12 +9,12 @@ int main( ) {
     // รับขนาดเมทริกซ์จากผู้ใช้
     printf( " Enter the number of rows: " ) ;
     scanf( " %d " , &rows ) ;
-    printf( "Enter the number of columns: " ) ;
-    scanf("%d", &cols);
+    printf( " Enter the number of columns: " ) ;
+    scanf( " %d ", &cols ) ;
 
     // ตรวจสอบขนาดของเมทริกซ์
     if ( rows == 0 && cols == 0 ) {
-        printf( " Matrix:\n(Empty)\n")  ;
+        printf( " Matrix:\n(Empty)\n " )  ;
         return 0 ;
     } else if ( rows == 0 || cols == 0 ) {
         printf( " Error: Invalid matrix dimensions.\n " ) ;
@@ -35,7 +35,7 @@ int main( ) {
     printf( " Matrix (%d x %d):\n ", rows, cols ) ;
     for ( int i = 0 ; i < rows; i++ ) {
         for ( int j = 0 ; j < cols; j++ ) {
-            printf( "%d ", matrix[i * cols + j] ) ;
+            printf( " %d ", matrix[i * cols + j] ) ;
         }
         printf( " \n " ) ;
     }
