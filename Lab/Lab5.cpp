@@ -1,111 +1,89 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 struct Node {
-    int Data;
-    struct Node *Next;
-};
-typedef struct Node N;
+    int Data ;
+    struct Node *Next ;
+} typedef N ;
 
-void AddNode(N **, int Data);
-void InsertNode(N **, int Data, int position);
-void DeleteNode(N **, int position);
-void ShowNode(N *);
+void AddNode( N **, int Data ) ;
+void InsertNode( N **, int Data, int position ) ;
+void DeleteNode( N **, int position ) ;
+void ShowNode( N ** ) ;
 
-int main() {
+int main( ) {
     N *start = NULL;
-    int data = 0, pos = 0;
-    
-    printf("Add (data): "); scanf("%d", &data); AddNode(&start, data);
-    printf("Add (data): "); scanf("%d", &data); AddNode(&start, data);
-    printf("Add (data): "); scanf("%d", &data); AddNode(&start, data);
-    ShowNode(start);
+    int data = 0, pos = 0 ;
+    printf( " Add (data) : " ) ; scanf( "%d", &data ) ; AddNode( &start, data ) ;
+    printf( " Add (data) : " ) ; scanf( "%d", &data ) ; AddNode( &start, data ) ;
+    printf( " Add (data) : " ) ; scanf( "%d", &data ) ; AddNode( &start, data ) ;
+    ShowNode(&start);
 
-    printf("Insert (data, pos): "); scanf("%d %d", &data, &pos); InsertNode(&start, data, pos);
-    printf("Insert (data, pos): "); scanf("%d %d", &data, &pos); InsertNode(&start, data, pos);
-    printf("Insert (data, pos): "); scanf("%d %d", &data, &pos); InsertNode(&start, data, pos);
-    ShowNode(start);
+    printf( " Insert (data, pos) : " ) ; scanf( "%d %d", &data, &pos ) ; InsertNode( &start, data, pos ) ;
+    printf( " Insert (data, pos) : " ) ; scanf( "%d %d", &data, &pos ) ; InsertNode( &start, data, pos ) ;
+    printf( " Insert (data, pos) : " ) ; scanf( "%d %d", &data, &pos ) ; InsertNode( &start, data, pos ) ;
+    ShowNode(&start); 
 
-    printf("Delete (pos): "); scanf("%d", &pos); DeleteNode(&start, pos);
-    printf("Delete (pos): "); scanf("%d", &pos); DeleteNode(&start, pos);
-    printf("Delete (pos): "); scanf("%d", &pos); DeleteNode(&start, pos);
-    ShowNode(start);
+    printf( " Delete (pos) : " ) ; scanf( "%d", &pos ) ; DeleteNode( &start, pos ) ;
+    printf( " Delete (pos) : " ) ; scanf( "%d", &pos ) ; DeleteNode( &start, pos ) ;
+    printf( " Delete (pos) : " ) ; scanf( "%d", &pos ) ; DeleteNode( &start, pos ) ;
+    ShowNode(&start);
 
-    return 0;
+    return 0 ;
 }
 
 void AddNode(N **Walk, int Data) {
-    N *newNode = (N *)malloc(sizeof(N));
-    newNode->Data = Data;
-    newNode->Next = NULL;
-
-    if (*Walk == NULL) {
-        *Walk = newNode;
-    } else {
-        N *temp = *Walk;
-        while (temp->Next != NULL) {
-            temp = temp->Next;
-        }
-        temp->Next = newNode;
+     while ( *Walk != NULL ) {
+        Walk = &( *Walk )->Next ;
     }
+    *Walk = new N ;
+    ( *Walk )->Data = Data ;
+    ( *Walk )->Next = NULL ;
 }
 
-void ShowNode(N *Walk) {
-    while (Walk != NULL) {
-        printf("%d ", Walk->Data);
-        Walk = Walk->Next;
+
+void ShowNode(N **Walk) {
+    N *showstart = *Walk ;
+    while ( showstart != NULL ) {
+        printf("%d ", ( showstart )->Data) ;
+        showstart = ( showstart )->Next ;
     }
-    printf("\n");
+    printf("\n") ;
 }
 
 void InsertNode(N **Walk, int Data, int position) {
-    N *newNode = (N *)malloc(sizeof(N));
-    newNode->Data = Data;
-    
-    if (position == 1) {
-        newNode->Next = *Walk;
-        *Walk = newNode;
-    } else {
-        N *temp = *Walk;
-        for (int i = 1; i < position - 1 && temp != NULL; i++) {
-            temp = temp->Next;
-        }
+    N *temp0 = new N ;
+    temp0->Data = Data ; 
 
-        if (temp == NULL) {
-            printf("Invalid position!\n");
-            free(newNode);
-            return;
-        }
+    if ( position == 1 ) {
+        temp0->Next = *Walk ;
+        *Walk = temp0 ;
+    }else if ( position > 1 ) {
 
-        newNode->Next = temp->Next;
-        temp->Next = newNode;
+        N *temp1 = *Walk ;
+        for ( int i = 1 ; i < position - 1 && temp1 != NULL ; i++ ) {
+            temp1 = temp1 -> Next ;
+        }
+        temp0->Next = temp1->Next ;
+        temp1->Next = temp0 ;
+       
+
     }
 }
 
 void DeleteNode(N **Walk, int position) {
-    if (*Walk == NULL) {
-        printf("List is empty!\n");
-        return;
-    }
-
-    N *temp = *Walk;
-
-    if (position == 1) {
-        *Walk = temp->Next;
-        free(temp);
-    } else {
-        N *prev = NULL;
-        for (int i = 1; i < position && temp != NULL; i++) {
-            prev = temp;
-            temp = temp->Next;
+    N *tempDel1 = *Walk ;
+    if ( position == 1 ) {
+        *Walk = tempDel1->Next ;
+        delete tempDel1 ;
+    }else if ( position > 1 ) {
+        N *tempDel2 = NULL ;
+        for ( int i = 1 ; i < position && tempDel1 != NULL ; i++ ){
+            tempDel2 = tempDel1 ;
+            tempDel1 = tempDel1->Next ;
         }
-
-        if (temp == NULL) {
-            printf("Invalid position!\n");
-            return;
-        }
-
-        prev->Next = temp->Next;
-        free(temp);
+        tempDel2->Next = tempDel1->Next ;
+        delete tempDel1 ;
     }
+    
+    
 }

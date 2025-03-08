@@ -1,56 +1,56 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-void ReadMatrix( int matrix[ ], int rows, int cols ) ;
+void GetMatrix(int value[], int *row, int *col);
 
-int main( ) {
-    int rows , cols ;
+int main() {
+    int r, c;
 
-    // รับขนาดเมทริกซ์จากผู้ใช้
-    printf( " Enter the number of rows: " ) ;
-    scanf( " %d " , &rows ) ;
-    printf( " Enter the number of columns: " ) ;
-    scanf( " %d ", &cols ) ;
+    printf("Enter the number of rows: ");
+    scanf("%d", &r);
+    printf("Enter the number of columns: ");
+    scanf("%d", &c);
 
-    // ตรวจสอบขนาดของเมทริกซ์
-    if ( rows == 0 && cols == 0 ) {
-        printf( " Matrix:\n(Empty)\n " )  ;
-        return 0 ;
-    } else if ( rows == 0 || cols == 0 ) {
-        printf( " Error: Invalid matrix dimensions.\n " ) ;
-        return 0 ;
+    if (r == 0 && c == 0) {
+        printf("Matrix:\n(Empty)\n");
+        return 0;
+    } else if (r == 0 || c == 0) {
+        printf("Error: Invalid matrix dimensions.\n");
+        return 0;
     }
 
-    // จองหน่วยความจำให้กับเมทริกซ์
-    int *matrix = ( int* )malloc( rows * cols * sizeof(int) ) ;
-    if ( matrix == NULL ) {
-        printf( " Error: Memory allocation failed.\n " ) ;
-        return 1 ;
-    }
+    int data[r * c];
+    GetMatrix(data, &r, &c);
 
-    // อ่านค่าจากผู้ใช้
-    ReadMatrix( matrix, rows, cols ) ;
-
-    // แสดงเมทริกซ์
-    printf( " Matrix (%d x %d):\n ", rows, cols ) ;
-    for ( int i = 0 ; i < rows; i++ ) {
-        for ( int j = 0 ; j < cols; j++ ) {
-            printf( " %d ", matrix[i * cols + j] ) ;
+    // ตรวจสอบจำนวนสมาชิกในเมทริกซ์
+    int count = 0;
+    for (int i = 0; i < r * c; i++) {
+        if (data[i] != 0) {
+            count++;
         }
-        printf( " \n " ) ;
     }
 
-    // คืนหน่วยความจำ
-    free( matrix ) ;
+    if (count < r * c) {
+        printf("Error: Incorrect number of elements.\n");
+        return 0;
+    }
 
-    return 0 ;
+    // แสดงผลเมทริกซ์
+    printf("Matrix (%d x %d):\n", r, c);
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            printf("%d ", data[i * c + j]);
+        }
+        printf("\n");
+    }
+    
+    return 0;
 }
 
-void ReadMatrix( int matrix[], int rows, int cols ) {
-    printf( " Enter the matrix elements: "  ) ;
-    for (int i = 0 ; i < rows ; i++) {
-        for ( int j = 0 ; j < cols ; j++ ) {
-            scanf( "%d", &matrix[i * cols + j] ) ;
+void GetMatrix(int value[], int *row, int *col) {
+    printf("Enter the matrix elements: ");
+    for (int i = 0; i < *row; i++) {
+        for (int j = 0; j < *col; j++) {
+            scanf("%d", &value[i * (*col) + j]);
         }
     }
 }

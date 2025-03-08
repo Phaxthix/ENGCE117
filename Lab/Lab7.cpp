@@ -1,56 +1,37 @@
 #include <stdio.h>
 
 class Node {
-public:
-    int Data;
-    Node *Next;
-    Node *Back;
+    public:
+        int Data;
+        Node *Next;
+        Node *Back;
+    public:
+        Node(int data = 0) : Data(data), Next(NULL), Back(NULL) {}
+} ;
 
-    Node(int data = 0) : Data(data), Next(NULL), Back(NULL) {}
-};
-
-class DoubleLinkedList {
-private:
-    Node *head;
-
-public:
-    DoubleLinkedList() : head(NULL) {}
-
-    void AddNode();
-    void InsertNode();
-    void DeleteNode();
-    void ShowFront();
-    void ShowBack();
-};
+class DoubleLinkedList : Node {
+    private:
+        Node *head;
+    public:
+        DoubleLinkedList() : head(NULL) {}
+        void AddNode() ;
+        void InsertNode() ;
+        void DeleteNode() ;
+        void ShowFront() ;
+        void ShowBack() ;
+} ;
 
 int main() {
     DoubleLinkedList A, B;
-
-    // Adding Nodes to the list
-    A.AddNode();
-    A.AddNode();
-    A.ShowFront();  // Showing the list from the front
-
-    // Inserting Nodes into specific positions
-    A.InsertNode();
-    A.InsertNode();
-    A.ShowFront();  // Showing the list from the front
-
-    // Deleting Nodes from specific positions
-    A.DeleteNode();
-    A.DeleteNode();
-    A.ShowFront();  // Showing the list after deletion
-
-    printf("---\n");
-
-    // Show list from back
-    B.AddNode();
-    B.AddNode();
-    B.AddNode();
-    B.ShowBack();  // Showing the list from the back
-
+    A.AddNode(); A.AddNode(); A.ShowFront();
+    A.InsertNode(); A.InsertNode(); A.ShowFront();
+    A.DeleteNode(); A.DeleteNode(); A.ShowFront();
+    printf( "---\n" ) ;
+    B.AddNode() ; B.AddNode() ; B.AddNode() ; B.ShowBack() ;
     return 0;
 }
+
+
 
 void DoubleLinkedList::ShowBack() {
     if (head == NULL) {
@@ -63,7 +44,6 @@ void DoubleLinkedList::ShowBack() {
         current = current->Next;
     }
 
-    printf("Show Back: ");
     while (current != NULL) {
         printf("%d ", current->Data);
         current = current->Back;
@@ -78,7 +58,6 @@ void DoubleLinkedList::ShowFront() {
     }
 
     Node *current = head;
-    printf("Show Front: ");
     while (current != NULL) {
         printf("%d ", current->Data);
         current = current->Next;
@@ -114,19 +93,19 @@ void DoubleLinkedList::DeleteNode() {
         return;
     }
 
-    if (current->Back == NULL) { // Deleting the first node
+    if (current->Back == NULL) { // ลบโหนดแรก
         head = current->Next;
         if (head != NULL) {
             head->Back = NULL;
         }
-    } else if (current->Next == NULL) { // Deleting the last node
+    } else if (current->Next == NULL) { // ลบโหนดสุดท้าย
         current->Back->Next = NULL;
-    } else { // Deleting a node in the middle
+    } else { // ลบโหนดตรงกลาง
         current->Back->Next = current->Next;
         current->Next->Back = current->Back;
     }
 
-    delete current; // Free memory
+    delete current; // ป้องกัน memory leak
 }
 
 void DoubleLinkedList::InsertNode() {
@@ -143,7 +122,7 @@ void DoubleLinkedList::InsertNode() {
 
     Node *temp = new Node(data);
 
-    if (head == NULL || position == 1) { // Insert at the beginning
+    if (head == NULL || position == 1) { // แทรกเป็นโหนดแรก
         temp->Next = head;
         if (head != NULL) {
             head->Back = temp;
@@ -160,6 +139,7 @@ void DoubleLinkedList::InsertNode() {
         currentPosition++;
     }
 
+    
     if (current->Next == NULL && currentPosition < position - 1) {
         current->Next = temp;
         temp->Back = current;
